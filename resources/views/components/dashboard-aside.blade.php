@@ -35,10 +35,10 @@
 <aside class="main-sidebar sidebar-dark-secondary elevation-4">
     <!-- Brand Logo -->
     <a href="" class="brand-link text-center d-flex align-items-center" style="flex-direction: column">
-        <img src="{{ asset('images/main-logo.webp') }}" alt="logo dinas sosial dki jakarta" class="img-circle elevation-3" style="opacity: .8; width: 70%">
+        <img src="{{ asset('images/logogs.png') }}" alt="logo Gudang Steak" class="img-circle elevation-3" style="opacity: .8; width: 70%">
         <span class="brand-text font-weight-bold mt-4">
-            SISTEM INFORMASI <br>
-            PILAR-PILAR SOSIAL
+            SOCIAL NETWORK ANALYSIS <br>
+            GUDANG STEAK 
         </span>
     </a>
 

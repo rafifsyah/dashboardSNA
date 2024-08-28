@@ -32,7 +32,16 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
+Route::get('/data', 'DataController@index');
+
+
+
+
+
 Route::group(['middleware' => ['PageGuard']], function () {
+    
+    Route::post('/process-json', 'FileUploadController@process')->name('json.process');
+
     /**
      * Login
      *
