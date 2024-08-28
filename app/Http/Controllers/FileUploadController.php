@@ -6,15 +6,9 @@ use Illuminate\Http\Request;
 
 class FileUploadController extends Controller
 {
-    public function process(Request $request)
+    public function uploadFollowersFollowing(Request $request)
     {
-        if ($request->isMethod('post')) {
-            // Validasi input file
-            $request->validate([
-                'followers' => 'required|file|mimes:json|max:2048',
-                'following' => 'required|file|mimes:json|max:2048',
-            ]);
-
+        try {
             $followersFile = $request->file('followers');
             $followingFile = $request->file('following');
 
@@ -47,13 +41,30 @@ class FileUploadController extends Controller
             $commonValues = array_intersect_key($followersValues, $followingValues);
 
             // Simpan nilai yang sama ke file JSON baru
-            $outputFile = storage_path('app/public/common_values.json');
+            $outputFile = env("PATH_SIMPAN_UPLOAD") . "/common_values.json";
             file_put_contents($outputFile, json_encode(array_keys($commonValues), JSON_PRETTY_PRINT));
 
             // Redirect ke halaman dengan hasil
-            return redirect()->route('upload.form')->with('result', 'success');
-        } else {
-            return response()->json(["error" => "Invalid request method"], 405);
+            return response()->json([
+                "message" => "berhasil"
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => $th->getMessage(),
+            ],500);
+        }
+    }
+
+    public function getFollowersFollowing(Request $request)
+    {
+        try {
+            // Simpan nilai yang sama ke file JSON baru
+            $outputFile = env("PATH_SIMPAN_UPLOAD") . "/common_values.json";
+            return response(file_get_contents($outputFile), 200)->header('Content-Type', mime_content_type($outputFile));
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => $th->getMessage(),
+            ],500);
         }
     }
 }

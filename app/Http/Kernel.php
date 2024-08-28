@@ -39,7 +39,7 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
-            'throttle:60,4',
+            // 'throttle:60,4',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\PUTMiddleware::class,
         ],
@@ -61,7 +61,7 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
-        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        // 'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'PageGuard' => \App\Http\Middleware\PageGuard::class,
         'PageForSuperadmin' => \App\Http\Middleware\PageForSuperadmin::class,

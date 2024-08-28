@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class DataController extends Controller
 {
-    /public function index()
+    public function index()
     {
         // Path ke file JSON
         $centralityFilePath = public_path('centrality_measures.json');
