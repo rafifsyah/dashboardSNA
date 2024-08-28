@@ -14,6 +14,7 @@ use App\Http\Controllers\PsmController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\TkskController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FileUploadController;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Route;
 
@@ -34,13 +35,14 @@ Route::get('/', function () {
 
 Route::get('/data', 'DataController@index');
 
-
+Route::post('/process-json', 'FileUploadController@process')->name('json.process');
 
 
 
 Route::group(['middleware' => ['PageGuard']], function () {
     
-    Route::post('/process-json', 'FileUploadController@process')->name('json.process');
+    Route::post('/upload', [FileUploadController::class, 'process'])->middleware('web');
+
 
     /**
      * Login
