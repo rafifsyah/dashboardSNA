@@ -8,6 +8,28 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
+    public function showDashboard()
+    {
+        // Path ke file JSON
+        $jsonPath = public_path('combined_following_data.json');
+
+        // Membaca isi file JSON
+        if (File::exists($jsonPath)) {
+            $jsonFile = File::get($jsonPath);
+            $combinedData = json_decode($jsonFile, true);
+        } else {
+            $combinedData = []; // Jika file tidak ditemukan, set data kosong
+        }
+
+        // Validasi bahwa $combinedData adalah array
+        if (!is_array($combinedData)) {
+            $combinedData = [];
+        }
+
+        // Mengirim data ke view
+        return view('dashboard', ['combinedData' => $combinedData]);
+    }
+
     protected $dService;
 
     public function __construct(DashboardService $dService)

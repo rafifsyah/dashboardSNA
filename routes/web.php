@@ -34,6 +34,10 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['PageGuard']], function () {
 
+    // web.php
+    Route::get('/dashboard', 'DashboardController@showDashboard')->name('dashboard');
+
+
     /**
      * Login
      *

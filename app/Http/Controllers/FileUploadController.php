@@ -67,4 +67,26 @@ class FileUploadController extends Controller
             ],500);
         }
     }
+    
+    public function getFiltered(Request $request)
+{
+    try {
+        $outputFile = env("PATH_SIMPAN_UPLOAD") . "/combined_following_data.json";
+
+        if (file_exists($outputFile)) {
+            $jsonData = file_get_contents($outputFile);
+            $data = json_decode($jsonData, true); // decode as associative array
+            return response()->json($data, 200);
+        } else {
+            return response()->json([
+                'message' => 'File not found.',
+            ], 404);
+        }
+    } catch (\Throwable $th) {
+        return response()->json([
+            'message' => $th->getMessage(),
+        ], 500);
+    }
+}
+
 }

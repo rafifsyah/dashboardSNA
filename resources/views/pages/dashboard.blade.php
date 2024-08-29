@@ -1,13 +1,11 @@
 @extends('layouts.dashboard-wraper')
 
 @push('dashboard-wraper.css')
-<!-- Link CSS untuk D3.js jika diperlukan -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.4/d3.min.css">
 <link rel="stylesheet" href="{{ asset('css/pages/dashboard.css') }}">
 @endpush
 
 @push('dashboard-wraper.jscript')
-<!-- Link ke D3.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.4/d3.min.js"></script>
 <script src="{{ asset('js/pages/dashboard.js') }}"></script>
 @endpush
@@ -65,12 +63,8 @@
                                 <table id="table_common_values" class="table table-bordered table-hover w-100">
                                     <thead>
                                         <tr>
-                                            <th>
-                                                No
-                                            </th>
-                                            <th>
-                                                Username
-                                            </th>
+                                            <th>No</th>
+                                            <th>Username</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -78,40 +72,39 @@
                                 </table>
 
                                 <hr>
+                                
+                                <button onclick="runPythonScript('scrape.php')">Scrape jumlah post, followers, dan following</button>
+                                
+                                <hr>
 
-                                @if(!empty($filteredData))
-                                    <h2>Filtered Following Data</h2>
-                                    <form class="filter-form" method="get">
-                                        <label for="min_followers">Min Followers:</label>
-                                        <input type="number" id="min_followers" name="min_followers" value="{{ $minFollowers }}">
-                                        <label for="max_followers">Max Followers:</label>
-                                        <input type="number" id="max_followers" name="max_followers" value="{{ $maxFollowers }}">
-                                        <br>
-                                        <br>
-                                        <label for="ensure_following_not_more_than_followers">Pastikan pengikut lebih banyak dibanding diikuti:</label>
-                                        <input type="checkbox" id="ensure_following_not_more_than_followers" name="ensure_following_not_more_than_followers" {{ $ensureFollowingNotMoreThanFollowers ? 'checked' : '' }}>
-                                        <input type="hidden" name="result" value="success">
-                                        <input type="submit" value="Filter">
-                                    </form>
-                                    <table class="numbered-table">
-                                        <tr><th>#</th><th>Username</th><th>Posts</th><th>Followers</th><th>Followees</th></tr>
-                                        @foreach ($filteredData as $index => $entry)
-                                            <tr>
-                                                <td>{{ $index + 1 }}</td>
-                                                <td><a href="https://www.instagram.com/{{ htmlspecialchars($entry['username']) }}" target="_blank">{{ htmlspecialchars($entry['username']) }}</a></td>
-                                                <td>{{ htmlspecialchars($entry['posts']) }}</td>
-                                                <td>{{ htmlspecialchars($entry['followers']) }}</td>
-                                                <td>{{ htmlspecialchars($entry['followees']) }}</td>
-                                            </tr>
-                                        @endforeach
-                                    </table>
-                                @else
-                                    <p>No filtered following data found.</p>
-                                @endif
+                                <!-- Menampilkan tabel untuk data dari combined_following_data.json -->
+                                <h2>jumlah post, Follower, Following</h2>
+                                <table id="table_filtered" class="table table-bordered table-hover w-100">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Username</th>
+                                            <th>Posts</th>
+                                            <th>Followers</th>
+                                            <th>Followees</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                                <hr>
+                                
+                                <h2>Scraping masing masing followers dari list filter</h2>
+                                <button onclick="runPythonScript('run_node_graphy.php')">Scraping Follower</button>
+                                
+                                <hr>
 
                                 <h2>Fungsi untuk mendapatkan node dan mendapatkan nilai Centrality Measures</h2>
                                 <button onclick="runPythonScript('run_node_graphy.php')">Dapatkan Node Script</button>
                                 <button onclick="runPythonScript('run_cm.php')">Hitung Centrality Measure</button>
+                                
+                                <hr>
+
                             </div>
                         </div>
                     </div>

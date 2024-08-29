@@ -22,6 +22,9 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('post-followers-following', [FileUploadController::class, 'uploadFollowersFollowing']);
 
     Route::get('get-followers-following', [FileUploadController::class, 'getFollowersFollowing']);
+    
+    Route::get('get-filtered', [FileUploadController::class, 'getFiltered']);
+
 
     /**
      * Login With Cookie
